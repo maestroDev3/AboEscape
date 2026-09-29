@@ -153,5 +153,27 @@
   "wholeNumberError": "Please enter a whole number",
   "@wholeNumberError": {
     "description": "Validation error when a period is not a positive whole number."
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Tooltip of the delete button and confirm button of the delete dialog."
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Button that closes a dialog without changes."
+  },
+  "deleteSubscriptionTitle": "Delete subscription?",
+  "@deleteSubscriptionTitle": {
+    "description": "Title of the dialog that confirms deleting a subscription."
+  },
+  "deleteSubscriptionMessage": "“{name}” will be removed from this device.",
+  "@deleteSubscriptionMessage": {
+    "description": "Body of the delete confirmation dialog.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Netflix"
+      }
+    }
   }
 }
