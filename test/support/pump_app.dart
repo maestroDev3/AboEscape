@@ -9,10 +9,15 @@ const phoneSize = Size(412, 915);
 /// Pumps widgets inside the app's theme and localization, so widget tests
 /// render the same way as the real app.
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp(Widget widget) async {
+  /// Sets the test surface to [phoneSize] and restores it after the test.
+  void usePhoneSize() {
     view.physicalSize = phoneSize * 3;
     view.devicePixelRatio = 3;
     addTearDown(view.reset);
+  }
+
+  Future<void> pumpApp(Widget widget) async {
+    usePhoneSize();
 
     await pumpWidget(
       MaterialApp(

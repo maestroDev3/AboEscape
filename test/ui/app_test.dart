@@ -9,9 +9,7 @@ void main() {
     testWidgets('shows the app title and the empty state on start', (
       tester,
     ) async {
-      tester.view.physicalSize = phoneSize * 3;
-      tester.view.devicePixelRatio = 3;
-      addTearDown(tester.view.reset);
+      tester.usePhoneSize();
 
       await tester.pumpWidget(const AboEscapeApp());
 
