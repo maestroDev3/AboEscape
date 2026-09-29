@@ -142,4 +142,43 @@ void main() {
       );
     });
   });
+
+  group('sortByNextBillingDate', () {
+    test('orders by next billing date and breaks ties by name', () {
+      final today = _day(2026, 9, 29);
+      final later = buildSubscription(
+        id: '1',
+        name: 'Alpha',
+        startDate: _day(2026, 1, 20),
+      );
+      final soonB = buildSubscription(
+        id: '2',
+        name: 'beta',
+        startDate: _day(2026, 1, 30),
+      );
+      final soonA = buildSubscription(
+        id: '3',
+        name: 'Apple',
+        startDate: _day(2026, 3, 30),
+      );
+
+      expect(sortByNextBillingDate([later, soonB, soonA], today), [
+        soonA,
+        soonB,
+        later,
+      ]);
+    });
+
+    test('returns a new list and leaves the input unchanged', () {
+      final input = [
+        buildSubscription(id: '1', name: 'B', startDate: _day(2026, 10, 2)),
+        buildSubscription(id: '2', name: 'A', startDate: _day(2026, 10, 1)),
+      ];
+      final copy = [...input];
+
+      sortByNextBillingDate(input, _day(2026, 9, 29));
+
+      expect(input, copy);
+    });
+  });
 }

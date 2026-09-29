@@ -34,7 +34,7 @@ void main() {
       expect(find.text('No subscriptions yet'), findsOneWidget);
     });
 
-    testWidgets('shows name, price and interval ordered by name', (
+    testWidgets('shows name, price and interval of each subscription', (
       tester,
     ) async {
       await _pumpHome(tester, FakeSubscriptionRepository([spotify, netflix]));
@@ -46,9 +46,34 @@ void main() {
       expect(find.text('€10.99'), findsOneWidget);
       expect(find.text('Monthly'), findsOneWidget);
       expect(find.text('Every 2 weeks'), findsOneWidget);
+    });
+
+    testWidgets('shows the next billing date of each subscription', (
+      tester,
+    ) async {
+      await _pumpHome(tester, FakeSubscriptionRepository([netflix]));
+
+      expect(find.text('Next: Oct 15, 2026'), findsOneWidget);
+    });
+
+    testWidgets('lists the next billing first, regardless of the name', (
+      tester,
+    ) async {
+      final zebra = buildSubscription(
+        id: 'zebra',
+        name: 'Zebra',
+        startDate: DateTime.utc(2026, 9, 30),
+      );
+      final apple = buildSubscription(
+        id: 'apple',
+        name: 'Apple',
+        startDate: DateTime.utc(2026, 10, 6),
+      );
+      await _pumpHome(tester, FakeSubscriptionRepository([apple, zebra]));
+
       expect(
-        tester.getTopLeft(find.text('Netflix')).dy,
-        lessThan(tester.getTopLeft(find.text('Spotify')).dy),
+        tester.getTopLeft(find.text('Zebra')).dy,
+        lessThan(tester.getTopLeft(find.text('Apple')).dy),
       );
     });
   });

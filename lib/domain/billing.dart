@@ -50,3 +50,23 @@ DateTime _nextWeekBased(DateTime start, DateTime day, int periodDays) {
   final periods = (elapsedDays + periodDays - 1) ~/ periodDays;
   return start.add(Duration(days: periods * periodDays));
 }
+
+/// Returns [subscriptions] ordered by their next billing date after [today],
+/// ties broken by name (case-insensitive); the input stays unchanged.
+List<Subscription> sortByNextBillingDate(
+  List<Subscription> subscriptions,
+  DateTime today,
+) {
+  final withDates = [
+    for (final subscription in subscriptions)
+      (subscription: subscription, next: nextBillingDate(subscription, today)),
+  ];
+  withDates.sort((a, b) {
+    final byDate = a.next.compareTo(b.next);
+    if (byDate != 0) return byDate;
+    return a.subscription.name.toLowerCase().compareTo(
+      b.subscription.name.toLowerCase(),
+    );
+  });
+  return [for (final entry in withDates) entry.subscription];
+}

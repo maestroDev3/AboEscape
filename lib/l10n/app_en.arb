@@ -175,5 +175,15 @@
         "example": "Netflix"
       }
     }
+  },
+  "nextBillingDate": "Next: {date}",
+  "@nextBillingDate": {
+    "description": "Next billing date of a subscription in the list.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Oct 15, 2026"
+      }
+    }
   }
 }
