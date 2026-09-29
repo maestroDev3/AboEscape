@@ -48,7 +48,8 @@ final class EveryNWeeks extends BillingInterval {
   final int weeks;
 
   @override
-  bool operator ==(Object other) => other is EveryNWeeks && other.weeks == weeks;
+  bool operator ==(Object other) =>
+      other is EveryNWeeks && other.weeks == weeks;
 
   @override
   int get hashCode => Object.hash(EveryNWeeks, weeks);

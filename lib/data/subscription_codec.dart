@@ -15,18 +15,17 @@ String encodeSubscriptions(List<Subscription> subscriptions) =>
     jsonEncode([for (final s in subscriptions) subscriptionToJson(s)]);
 
 /// Decodes a JSON string written by [encodeSubscriptions].
-List<Subscription> decodeSubscriptions(String source) => switch (jsonDecode(
-  source,
-)) {
-  final List<Object?> list => [
-    for (final item in list)
-      switch (item) {
-        final Map<String, Object?> json => subscriptionFromJson(json),
-        _ => throw FormatException('Invalid subscription entry: $item'),
-      },
-  ],
-  final other => throw FormatException('Expected a list, got: $other'),
-};
+List<Subscription> decodeSubscriptions(String source) =>
+    switch (jsonDecode(source)) {
+      final List<Object?> list => [
+        for (final item in list)
+          switch (item) {
+            final Map<String, Object?> json => subscriptionFromJson(json),
+            _ => throw FormatException('Invalid subscription entry: $item'),
+          },
+      ],
+      final other => throw FormatException('Expected a list, got: $other'),
+    };
 
 Map<String, Object?> subscriptionToJson(Subscription subscription) => {
   'id': subscription.id,
@@ -58,7 +57,8 @@ Subscription subscriptionFromJson(Map<String, Object?> json) => switch (json) {
       startDate: DateTime.parse(startDate),
       minimumTerm: _periodFromJson(json['minimumTerm']),
       noticePeriod: _periodFromJson(json['noticePeriod']),
-      category: SubscriptionCategory.values.asNameMap()[category] ??
+      category:
+          SubscriptionCategory.values.asNameMap()[category] ??
           SubscriptionCategory.other,
     ),
   _ => throw FormatException('Invalid subscription: $json'),

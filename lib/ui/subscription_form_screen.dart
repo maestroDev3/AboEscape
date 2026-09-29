@@ -303,15 +303,13 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
   }
 }
 
-String _intervalKindLabel(
-  AppLocalizations localizations,
-  _IntervalKind kind,
-) => switch (kind) {
-  _IntervalKind.monthly => localizations.intervalMonthly,
-  _IntervalKind.quarterly => localizations.intervalQuarterly,
-  _IntervalKind.yearly => localizations.intervalYearly,
-  _IntervalKind.everyNWeeks => localizations.intervalEveryNWeeksOption,
-};
+String _intervalKindLabel(AppLocalizations localizations, _IntervalKind kind) =>
+    switch (kind) {
+      _IntervalKind.monthly => localizations.intervalMonthly,
+      _IntervalKind.quarterly => localizations.intervalQuarterly,
+      _IntervalKind.yearly => localizations.intervalYearly,
+      _IntervalKind.everyNWeeks => localizations.intervalEveryNWeeksOption,
+    };
 
 /// Parses a positive whole number; null for empty or invalid text.
 int? _wholeNumber(String text) => switch (int.tryParse(text.trim())) {
@@ -320,12 +318,11 @@ int? _wholeNumber(String text) => switch (int.tryParse(text.trim())) {
 };
 
 /// Parses an optional period; empty text means "no period".
-Period? _period(String amount, PeriodUnit unit) => switch (_wholeNumber(
-  amount,
-)) {
-  final number? => Period(number, unit),
-  null => null,
-};
+Period? _period(String amount, PeriodUnit unit) =>
+    switch (_wholeNumber(amount)) {
+      final number? => Period(number, unit),
+      null => null,
+    };
 
 /// Optional amount plus unit, used for minimum term and notice period.
 class _PeriodField extends StatelessWidget {

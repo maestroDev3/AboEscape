@@ -135,9 +135,7 @@ void main() {
       expect(repository.subscriptions, [netflix]);
     });
 
-    testWidgets('does not offer delete for a new subscription', (
-      tester,
-    ) async {
+    testWidgets('does not offer delete for a new subscription', (tester) async {
       await _pumpHome(tester, FakeSubscriptionRepository());
 
       await tester.tap(find.text('Add subscription'));

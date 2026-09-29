@@ -10,19 +10,18 @@ import '../support/subscription_repository_contract.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  runSubscriptionRepositoryContract(
-    'SharedPreferencesSubscriptionRepository',
-    (initial) async {
-      SharedPreferences.setMockInitialValues({
-        SharedPreferencesSubscriptionRepository.storageKey: encodeSubscriptions(
-          initial,
-        ),
-      });
-      return SharedPreferencesSubscriptionRepository(
-        await SharedPreferences.getInstance(),
-      );
-    },
-  );
+  runSubscriptionRepositoryContract('SharedPreferencesSubscriptionRepository', (
+    initial,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      SharedPreferencesSubscriptionRepository.storageKey: encodeSubscriptions(
+        initial,
+      ),
+    });
+    return SharedPreferencesSubscriptionRepository(
+      await SharedPreferences.getInstance(),
+    );
+  });
 
   group('SharedPreferencesSubscriptionRepository', () {
     test('stores under the versioned key subscriptions.v1', () {
@@ -46,18 +45,15 @@ void main() {
       final preferences = await SharedPreferences.getInstance();
       final subscription = buildSubscription();
 
-      await SharedPreferencesSubscriptionRepository(
-        preferences,
-      ).save(subscription);
+      await SharedPreferencesSubscriptionRepository(preferences)
+          .save(subscription);
       final reopened = SharedPreferencesSubscriptionRepository(preferences);
 
       expect(await reopened.watchAll().first, [subscription]);
     });
 
     test('loads data stored in the v1 format', () async {
-      SharedPreferences.setMockInitialValues({
-        'subscriptions.v1': storedV1,
-      });
+      SharedPreferences.setMockInitialValues({'subscriptions.v1': storedV1});
       final repository = SharedPreferencesSubscriptionRepository(
         await SharedPreferences.getInstance(),
       );

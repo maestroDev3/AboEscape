@@ -6,7 +6,11 @@ final class Money {
       throw ArgumentError.value(cents, 'cents', 'must not be negative');
     }
     if (!_currencyCode.hasMatch(currency)) {
-      throw ArgumentError.value(currency, 'currency', 'must be an ISO 4217 code');
+      throw ArgumentError.value(
+        currency,
+        'currency',
+        'must be an ISO 4217 code',
+      );
     }
   }
 

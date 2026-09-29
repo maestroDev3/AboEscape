@@ -35,9 +35,9 @@ String _normalize(String locale) => locale.replaceAll('-', '_');
 /// Writes [cents] as editable text for a price field, using the decimal
 /// separator of [locale], e.g. `12,99` for `de_DE`.
 String formatAmountForInput(int cents, String locale) {
-  final separator = NumberFormat.decimalPattern(
-    _normalize(locale),
-  ).symbols.DECIMAL_SEP;
+  final separator = NumberFormat.decimalPattern(_normalize(locale))
+      .symbols
+      .DECIMAL_SEP;
   final fraction = (cents % 100).toString().padLeft(2, '0');
   return '${cents ~/ 100}$separator$fraction';
 }

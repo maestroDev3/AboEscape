@@ -12,7 +12,10 @@ void main() {
     });
 
     test('formats US dollars for en_US', () {
-      expect(formatMoney(Money(cents: 999, currency: 'USD'), 'en_US'), r'$9.99');
+      expect(
+        formatMoney(Money(cents: 999, currency: 'USD'), 'en_US'),
+        r'$9.99',
+      );
     });
 
     test('formats whole amounts with two decimals', () {
