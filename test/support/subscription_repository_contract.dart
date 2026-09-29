@@ -5,8 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'subscription_fixtures.dart';
 
 /// Creates a repository that already contains [initial].
-typedef RepositoryFactory =
-    Future<SubscriptionRepository> Function(List<Subscription> initial);
+typedef RepositoryFactory = Future<SubscriptionRepository> Function(
+  List<Subscription> initial,
+);
 
 /// Behaviour every [SubscriptionRepository] implementation must fulfil.
 void runSubscriptionRepositoryContract(String name, RepositoryFactory create) {

@@ -236,7 +236,10 @@ void main() {
       await _enter(tester, 'nameField', 'Gym Plus');
       await _save(tester);
 
-      expect(repository.subscriptions.single, existing.copyWith(name: 'Gym Plus'));
+      expect(
+        repository.subscriptions.single,
+        existing.copyWith(name: 'Gym Plus'),
+      );
     });
   });
 }

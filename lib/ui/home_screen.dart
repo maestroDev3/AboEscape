@@ -60,9 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (subscriptions case final list? when list.isEmpty)
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child: _EmptyState(
-                    message: localizations.emptySubscriptions,
-                  ),
+                  child: _EmptyState(message: localizations.emptySubscriptions),
                 )
               else if (subscriptions case final list?)
                 SliverPadding(
@@ -87,9 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
 List<Subscription>? _sortedByName(List<Subscription>? subscriptions) =>
     subscriptions == null
     ? null
-    : ([...subscriptions]..sort(
-        (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
-      ));
+    : ([...subscriptions]
+        ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())));
 
 class _SubscriptionTile extends StatelessWidget {
   const _SubscriptionTile({required this.subscription, required this.onTap});

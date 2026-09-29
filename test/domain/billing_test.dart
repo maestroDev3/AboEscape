@@ -31,42 +31,66 @@ void main() {
     test('returns the start date when it lies in the future', () {
       final subscription = buildSubscription(startDate: _day(2026, 10, 15));
 
-      expect(nextBillingDate(subscription, _day(2026, 9, 29)), _day(2026, 10, 15));
+      expect(
+        nextBillingDate(subscription, _day(2026, 9, 29)),
+        _day(2026, 10, 15),
+      );
     });
 
     test('returns today when today is a billing day', () {
       final subscription = buildSubscription(startDate: _day(2026, 1, 29));
 
-      expect(nextBillingDate(subscription, _day(2026, 9, 29)), _day(2026, 9, 29));
+      expect(
+        nextBillingDate(subscription, _day(2026, 9, 29)),
+        _day(2026, 9, 29),
+      );
     });
 
     test('bills a monthly subscription from the 31st on February 28', () {
       final subscription = buildSubscription(startDate: _day(2026, 1, 31));
 
-      expect(nextBillingDate(subscription, _day(2026, 2, 1)), _day(2026, 2, 28));
+      expect(
+        nextBillingDate(subscription, _day(2026, 2, 1)),
+        _day(2026, 2, 28),
+      );
     });
 
     test('returns to the 31st after a short month without drifting', () {
       final subscription = buildSubscription(startDate: _day(2026, 1, 31));
 
-      expect(nextBillingDate(subscription, _day(2026, 3, 1)), _day(2026, 3, 31));
+      expect(
+        nextBillingDate(subscription, _day(2026, 3, 1)),
+        _day(2026, 3, 31),
+      );
     });
 
     test('bills a monthly subscription from the 31st on February 29 in a leap year', () {
       final subscription = buildSubscription(startDate: _day(2028, 1, 31));
 
-      expect(nextBillingDate(subscription, _day(2028, 2, 1)), _day(2028, 2, 29));
-    });
-
-    test('bills a quarterly subscription from November 30 on Feb 28, then May 30', () {
-      final subscription = buildSubscription(
-        interval: const Quarterly(),
-        startDate: _day(2025, 11, 30),
+      expect(
+        nextBillingDate(subscription, _day(2028, 2, 1)),
+        _day(2028, 2, 29),
       );
-
-      expect(nextBillingDate(subscription, _day(2025, 12, 1)), _day(2026, 2, 28));
-      expect(nextBillingDate(subscription, _day(2026, 3, 1)), _day(2026, 5, 30));
     });
+
+    test(
+      'bills a quarterly subscription from November 30 on Feb 28, then May 30',
+      () {
+        final subscription = buildSubscription(
+          interval: const Quarterly(),
+          startDate: _day(2025, 11, 30),
+        );
+
+        expect(
+          nextBillingDate(subscription, _day(2025, 12, 1)),
+          _day(2026, 2, 28),
+        );
+        expect(
+          nextBillingDate(subscription, _day(2026, 3, 1)),
+          _day(2026, 5, 30),
+        );
+      },
+    );
 
     test('bills a yearly subscription from February 29 on Feb 28 and in leap years on Feb 29', () {
       final subscription = buildSubscription(
@@ -74,8 +98,14 @@ void main() {
         startDate: _day(2024, 2, 29),
       );
 
-      expect(nextBillingDate(subscription, _day(2024, 3, 1)), _day(2025, 2, 28));
-      expect(nextBillingDate(subscription, _day(2027, 3, 1)), _day(2028, 2, 29));
+      expect(
+        nextBillingDate(subscription, _day(2024, 3, 1)),
+        _day(2025, 2, 28),
+      );
+      expect(
+        nextBillingDate(subscription, _day(2027, 3, 1)),
+        _day(2028, 2, 29),
+      );
     });
 
     test('bills every n weeks counted from the start date', () {
@@ -84,8 +114,14 @@ void main() {
         startDate: _day(2026, 9, 1),
       );
 
-      expect(nextBillingDate(subscription, _day(2026, 9, 20)), _day(2026, 9, 29));
-      expect(nextBillingDate(subscription, _day(2026, 9, 15)), _day(2026, 9, 15));
+      expect(
+        nextBillingDate(subscription, _day(2026, 9, 20)),
+        _day(2026, 9, 29),
+      );
+      expect(
+        nextBillingDate(subscription, _day(2026, 9, 15)),
+        _day(2026, 9, 15),
+      );
     });
 
     test('ignores the time of day of today', () {
@@ -100,7 +136,10 @@ void main() {
     test('finds dates many years after the start', () {
       final subscription = buildSubscription(startDate: _day(2000, 1, 31));
 
-      expect(nextBillingDate(subscription, _day(2026, 2, 2)), _day(2026, 2, 28));
+      expect(
+        nextBillingDate(subscription, _day(2026, 2, 2)),
+        _day(2026, 2, 28),
+      );
     });
   });
 }

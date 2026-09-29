@@ -21,7 +21,10 @@ void main() {
     testWidgets('renders on a phone-sized screen', (tester) async {
       await tester.pumpApp(const SizedBox.shrink());
 
-      expect(tester.view.physicalSize / tester.view.devicePixelRatio, phoneSize);
+      expect(
+        tester.view.physicalSize / tester.view.devicePixelRatio,
+        phoneSize,
+      );
     });
   });
 }
