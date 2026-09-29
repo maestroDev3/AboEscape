@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../domain/billing.dart';
 import '../domain/clock.dart';
 import '../domain/subscription.dart';
 import '../domain/subscription_repository.dart';
@@ -53,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StreamBuilder<List<Subscription>>(
         stream: _subscriptions,
         builder: (context, snapshot) {
-          final subscriptions = _sortedByName(snapshot.data);
+          final subscriptions = switch (snapshot.data) {
+            final data? => sortByNextBillingDate(data, widget.clock()),
+            null => null,
+          };
           return CustomScrollView(
             slivers: [
               SliverAppBar.large(title: Text(localizations.appTitle)),
@@ -69,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: list.length,
                     itemBuilder: (context, index) => _SubscriptionTile(
                       subscription: list[index],
+                      nextBilling: nextBillingDate(list[index], widget.clock()),
                       onTap: () => _openForm(list[index]),
                     ),
                   ),
@@ -81,17 +86,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-/// Alphabetical order for now; sorting by next billing date follows in #4.
-List<Subscription>? _sortedByName(List<Subscription>? subscriptions) =>
-    subscriptions == null
-    ? null
-    : ([...subscriptions]
-        ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())));
-
 class _SubscriptionTile extends StatelessWidget {
-  const _SubscriptionTile({required this.subscription, required this.onTap});
+  const _SubscriptionTile({
+    required this.subscription,
+    required this.nextBilling,
+    required this.onTap,
+  });
 
   final Subscription subscription;
+  final DateTime nextBilling;
   final VoidCallback onTap;
 
   @override
@@ -104,7 +107,17 @@ class _SubscriptionTile extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         title: Text(subscription.name),
-        subtitle: Text(intervalLabel(localizations, subscription.interval)),
+        isThreeLine: true,
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(intervalLabel(localizations, subscription.interval)),
+            Text(
+              localizations.nextBillingDate(formatDate(nextBilling, locale)),
+            ),
+          ],
+        ),
         trailing: Text(
           formatMoney(subscription.price, locale),
           style: theme.textTheme.titleMedium,
