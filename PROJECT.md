@@ -2,7 +2,7 @@
 
 ## GitHub repository
 
-- **Repository name:** `abo-escape`
+- **Repository name:** `AboEscape`
 - **Description:** Subscription tracker: all subscriptions at a glance, monthly costs and reminders before cancellation deadlines.
 - **Topics:** `flutter` `dart` `android` `tdd` `abo-escape`
 
@@ -17,7 +17,7 @@ Android app (Flutter): all your subscriptions in one place – monthly and yearl
 
 ```
 This project belongs to the app “Abo Escape” – Subscription tracker: all subscriptions at a glance, monthly costs and reminders before cancellation deadlines.
-Repository: github.com/maestroDev3/abo-escape
+Repository: github.com/maestroDev3/AboEscape
 
 - CLAUDE.md (working rules) and STATUS.md (current state) in the repo are authoritative.
   Read STATUS.md at the start of every conversation.
@@ -38,7 +38,7 @@ Repository: github.com/maestroDev3/abo-escape
 
 ```
 The attached ZIP contains the starter files for Abo Escape. Extract its contents
-into the root of github.com/maestroDev3/abo-escape (create the repo if it does not exist yet,
+into the root of github.com/maestroDev3/AboEscape (create the repo if it does not exist yet,
 private, default branch main), commit ("chore: add working rules, skill and CI")
 and push to main.
 Then run the "First start" from CLAUDE.md: create labels, create epics and stories
