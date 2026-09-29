@@ -8,7 +8,7 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## In progress
 
-- #2 Project setup – tasks #17, #18, #19
+- Nothing right now.
 
 ## Up next
 
@@ -18,7 +18,7 @@ The GitHub issues are authoritative; this file is the summary.
 
 | Epic | Stories (in order) |
 |---|---|
-| #1 Foundation | #2 Project setup (`in-progress`) → #3 Create, edit and delete subscriptions → #4 Subscription list sorted by next billing date → #20 Choose the app currency |
+| #1 Foundation | #3 Create, edit and delete subscriptions → #4 Subscription list sorted by next billing date → #20 Choose the app currency |
 | #5 Cost overview | #6 Monthly and yearly totals → #7 Breakdown by category |
 | #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
 | #12 Subscription lifecycle | #13 Mark as cancelled, archive → #14 Price changes with history |
@@ -28,6 +28,7 @@ All stories without a marker are `backlog`.
 
 ## Recently done
 
+- #2 Project setup (theme, localization, `Clock`, `pumpApp`)
 - Open decisions settled: name, currency, disclaimer, platform
 - Flutter project scaffolded (Scaffold workflow), CI green
 - Labels, epics and stories created as issues
