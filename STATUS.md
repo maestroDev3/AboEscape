@@ -12,7 +12,9 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## Up next
 
-- #20 Choose the app currency (needs refinement)
+- Blocked: GitHub Actions does not start jobs (billing / spending limit), so CI cannot run.
+- #20 Choose the app currency (needs refinement, waits for the open decision below)
+- Then epic #5: #6 Monthly and yearly totals
 
 ## Backlog by epic
 
@@ -43,4 +45,4 @@ All stories without a marker are `backlog`.
 
 ## Open decisions (user only)
 
-- None right now.
+- #20: When the app currency is changed, should existing subscriptions simply switch to the new currency (same numbers, no conversion) or keep their original currency?

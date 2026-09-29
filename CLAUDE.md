@@ -127,7 +127,8 @@ blocked). Tests therefore run via **GitHub Actions** (`.github/workflows/ci.yml`
 results are read via the GitHub API (on failure, CI posts the output as a
 commit comment). CI also checks `dart format`; to format a branch, dispatch the
 **Format** workflow (`.github/workflows/format.yml`) on it, pull its commit and
-push a further commit (bot pushes do not trigger CI).
+push a further commit (bot pushes do not trigger CI). Never use `[skip ci]` in
+commit messages: squash merges copy it into `main` and skip the APK build.
 
 ## Decisions (2026-09-29)
 
