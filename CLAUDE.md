@@ -125,7 +125,9 @@ configuration, load and follow the skill `.claude/skills/flutter-dart/SKILL.md`
 Flutter cannot be installed in Claude's cloud environment (download servers
 blocked). Tests therefore run via **GitHub Actions** (`.github/workflows/ci.yml`);
 results are read via the GitHub API (on failure, CI posts the output as a
-commit comment).
+commit comment). CI also checks `dart format`; to format a branch, dispatch the
+**Format** workflow (`.github/workflows/format.yml`) on it, pull its commit and
+push a further commit (bot pushes do not trigger CI).
 
 ## Decisions (2026-09-29)
 
