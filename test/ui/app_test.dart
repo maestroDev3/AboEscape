@@ -2,6 +2,7 @@ import 'package:abo_escape/ui/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/fake_subscription_repository.dart';
 import '../support/pump_app.dart';
 
 void main() {
@@ -11,7 +12,10 @@ void main() {
     ) async {
       tester.usePhoneSize();
 
-      await tester.pumpWidget(const AboEscapeApp());
+      await tester.pumpWidget(
+        AboEscapeApp(repository: FakeSubscriptionRepository()),
+      );
+      await tester.pump();
 
       expect(find.text('Abo Escape'), findsWidgets);
       expect(find.text('No subscriptions yet'), findsOneWidget);
@@ -20,7 +24,10 @@ void main() {
     testWidgets('follows the system brightness with light and dark themes', (
       tester,
     ) async {
-      await tester.pumpWidget(const AboEscapeApp());
+      await tester.pumpWidget(
+        AboEscapeApp(repository: FakeSubscriptionRepository()),
+      );
+      await tester.pump();
 
       final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
       expect(app.theme?.brightness, Brightness.light);

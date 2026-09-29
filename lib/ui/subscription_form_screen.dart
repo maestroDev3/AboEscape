@@ -138,6 +138,19 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
     Navigator.of(context).pop();
   }
 
+  Future<void> _confirmDelete() async {
+    final subscription = widget.subscription;
+    if (subscription == null) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => _DeleteDialog(name: subscription.name),
+    );
+    if (confirmed != true) return;
+    await widget.repository.delete(subscription.id);
+    if (!mounted) return;
+    Navigator.of(context).pop();
+  }
+
   BillingInterval _interval() => switch (_intervalKind) {
     _IntervalKind.monthly => const Monthly(),
     _IntervalKind.quarterly => const Quarterly(),
@@ -162,6 +175,12 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
               : localizations.editSubscription,
         ),
         actions: [
+          if (widget.subscription != null)
+            IconButton(
+              onPressed: _confirmDelete,
+              tooltip: localizations.delete,
+              icon: const Icon(Icons.delete_outline),
+            ),
           TextButton(onPressed: _save, child: Text(localizations.save)),
         ],
       ),
@@ -366,6 +385,33 @@ class _PeriodField extends StatelessWidget {
             ],
             onChanged: (value) => onUnitChanged(value ?? unit),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Asks before deleting; pops `true` when the user confirms.
+class _DeleteDialog extends StatelessWidget {
+  const _DeleteDialog({required this.name});
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    return AlertDialog(
+      title: Text(localizations.deleteSubscriptionTitle),
+      content: Text(localizations.deleteSubscriptionMessage(name)),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text(localizations.cancel),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: Text(localizations.delete),
         ),
       ],
     );
