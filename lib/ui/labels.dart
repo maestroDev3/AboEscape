@@ -1,4 +1,5 @@
 import '../domain/billing_interval.dart';
+import '../domain/period.dart';
 import '../domain/subscription_category.dart';
 import '../l10n/app_localizations.dart';
 
@@ -27,3 +28,11 @@ String categoryLabel(
   SubscriptionCategory.insurance => localizations.categoryInsurance,
   SubscriptionCategory.other => localizations.categoryOther,
 };
+
+/// Localized name of a period unit, e.g. "months".
+String periodUnitLabel(AppLocalizations localizations, PeriodUnit unit) =>
+    switch (unit) {
+      PeriodUnit.days => localizations.periodUnitDays,
+      PeriodUnit.weeks => localizations.periodUnitWeeks,
+      PeriodUnit.months => localizations.periodUnitMonths,
+    };

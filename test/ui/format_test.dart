@@ -23,6 +23,17 @@ void main() {
     });
   });
 
+  group('formatAmountForInput', () {
+    test('uses the decimal comma for de_DE', () {
+      expect(formatAmountForInput(1299, 'de_DE'), '12,99');
+    });
+
+    test('uses the decimal point for en and pads cents', () {
+      expect(formatAmountForInput(2990, 'en'), '29.90');
+      expect(formatAmountForInput(5, 'en'), '0.05');
+    });
+  });
+
   group('formatDate', () {
     test('formats a medium date for en_US', () {
       expect(formatDate(DateTime.utc(2026, 1, 15), 'en_US'), 'Jan 15, 2026');
