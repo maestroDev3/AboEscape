@@ -127,9 +127,16 @@ blocked). Tests therefore run via **GitHub Actions** (`.github/workflows/ci.yml`
 results are read via the GitHub API (on failure, CI posts the output as a
 commit comment).
 
+## Decisions (2026-09-29)
+
+- **Name:** keep “Abo Escape” as the working title; revisit before a store release.
+- **Currency:** one app-wide currency, default from the device locale, changeable in
+  settings; no conversion. `Money` still stores its currency so multiple currencies
+  stay possible later.
+- **Disclaimer:** shown once on first start and permanently under “About”
+  (deadlines without guarantee, the contract is authoritative).
+- **Platform:** Android only for now; don't block iOS, add it later as its own epic if needed.
+
 ## Open decisions (only the user decides)
 
-- Keep the name “Abo Escape” (German “Abo”) or use a fully English name like “Sub Escape” for international markets?
-- Single currency (EUR) or multiple currencies?
-- In-app disclaimer (deadlines without guarantee)?
-- Android only, or iOS later?
+- None right now.
