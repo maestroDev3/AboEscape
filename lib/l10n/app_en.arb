@@ -69,5 +69,89 @@
   "categoryOther": "Other",
   "@categoryOther": {
     "description": "Subscription category 'Other'."
+  },
+  "addSubscription": "Add subscription",
+  "@addSubscription": {
+    "description": "Title of the form for a new subscription and label of the button that opens it."
+  },
+  "editSubscription": "Edit subscription",
+  "@editSubscription": {
+    "description": "Title of the form for an existing subscription."
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Button that saves the subscription form."
+  },
+  "nameFieldLabel": "Name",
+  "@nameFieldLabel": {
+    "description": "Label of the subscription name field."
+  },
+  "priceFieldLabel": "Price",
+  "@priceFieldLabel": {
+    "description": "Label of the price field."
+  },
+  "billingIntervalFieldLabel": "Billing interval",
+  "@billingIntervalFieldLabel": {
+    "description": "Label of the billing interval selection."
+  },
+  "intervalEveryNWeeksOption": "Every n weeks",
+  "@intervalEveryNWeeksOption": {
+    "description": "Option in the billing interval selection for a custom number of weeks."
+  },
+  "weeksFieldLabel": "Number of weeks",
+  "@weeksFieldLabel": {
+    "description": "Label of the field for the number of weeks between two payments."
+  },
+  "startDateFieldLabel": "Start date",
+  "@startDateFieldLabel": {
+    "description": "Label of the start date of the subscription."
+  },
+  "categoryFieldLabel": "Category",
+  "@categoryFieldLabel": {
+    "description": "Label of the category selection."
+  },
+  "minimumTermFieldLabel": "Minimum term",
+  "@minimumTermFieldLabel": {
+    "description": "Label of the optional minimum contract term."
+  },
+  "noticePeriodFieldLabel": "Notice period",
+  "@noticePeriodFieldLabel": {
+    "description": "Label of the optional notice period for cancellation."
+  },
+  "periodUnitFieldLabel": "Unit",
+  "@periodUnitFieldLabel": {
+    "description": "Label of the unit selection (days, weeks, months) next to a period."
+  },
+  "optionalFieldHint": "Optional",
+  "@optionalFieldHint": {
+    "description": "Hint in fields that may be left empty."
+  },
+  "periodUnitDays": "days",
+  "@periodUnitDays": {
+    "description": "Unit of a period: days."
+  },
+  "periodUnitWeeks": "weeks",
+  "@periodUnitWeeks": {
+    "description": "Unit of a period: weeks."
+  },
+  "periodUnitMonths": "months",
+  "@periodUnitMonths": {
+    "description": "Unit of a period: months."
+  },
+  "nameRequiredError": "Please enter a name",
+  "@nameRequiredError": {
+    "description": "Validation error when the subscription name is empty."
+  },
+  "priceInvalidError": "Please enter a valid price",
+  "@priceInvalidError": {
+    "description": "Validation error when the price cannot be read."
+  },
+  "weeksInvalidError": "Please enter a number of weeks",
+  "@weeksInvalidError": {
+    "description": "Validation error when the number of weeks is missing or below 1."
+  },
+  "wholeNumberError": "Please enter a whole number",
+  "@wholeNumberError": {
+    "description": "Validation error when a period is not a positive whole number."
   }
 }
