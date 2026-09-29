@@ -7,5 +7,67 @@
   "emptySubscriptions": "No subscriptions yet",
   "@emptySubscriptions": {
     "description": "Shown on the home screen when the user has not added any subscription."
+  },
+  "intervalMonthly": "Monthly",
+  "@intervalMonthly": {
+    "description": "Billing interval: billed every month."
+  },
+  "intervalQuarterly": "Quarterly",
+  "@intervalQuarterly": {
+    "description": "Billing interval: billed every three months."
+  },
+  "intervalYearly": "Yearly",
+  "@intervalYearly": {
+    "description": "Billing interval: billed once a year."
+  },
+  "intervalEveryNWeeks": "{weeks, plural, =1{Every week} other{Every {weeks} weeks}}",
+  "@intervalEveryNWeeks": {
+    "description": "Billing interval: billed every given number of weeks.",
+    "placeholders": {
+      "weeks": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "categoryStreaming": "Streaming",
+  "@categoryStreaming": {
+    "description": "Subscription category 'Streaming'."
+  },
+  "categoryMusic": "Music",
+  "@categoryMusic": {
+    "description": "Subscription category 'Music'."
+  },
+  "categorySoftware": "Software",
+  "@categorySoftware": {
+    "description": "Subscription category 'Software'."
+  },
+  "categoryNews": "News",
+  "@categoryNews": {
+    "description": "Subscription category 'News'."
+  },
+  "categoryGaming": "Gaming",
+  "@categoryGaming": {
+    "description": "Subscription category 'Gaming'."
+  },
+  "categoryFitness": "Fitness",
+  "@categoryFitness": {
+    "description": "Subscription category 'Fitness'."
+  },
+  "categoryCloud": "Cloud storage",
+  "@categoryCloud": {
+    "description": "Subscription category 'Cloud storage'."
+  },
+  "categoryMobile": "Mobile & internet",
+  "@categoryMobile": {
+    "description": "Subscription category 'Mobile & internet'."
+  },
+  "categoryInsurance": "Insurance",
+  "@categoryInsurance": {
+    "description": "Subscription category 'Insurance'."
+  },
+  "categoryOther": "Other",
+  "@categoryOther": {
+    "description": "Subscription category 'Other'."
   }
 }
