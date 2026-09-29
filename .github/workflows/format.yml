@@ -1,0 +1,28 @@
+name: Format
+
+# Runs `dart format` on the chosen branch and commits the result.
+# Claude's environment has no Dart SDK, so formatting happens here.
+# Note: pushes by GITHUB_TOKEN do not trigger CI – push another commit afterwards.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: dart format lib test
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "refactor: apply dart format" || echo "nothing to format"
+          git push
