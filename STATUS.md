@@ -8,17 +8,17 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## In progress
 
-- Nothing right now.
+- #4 Subscription list sorted by next billing date – tasks #35, #36
 
 ## Up next
 
-- #4 Subscription list sorted by next billing date (needs refinement)
+- #20 Choose the app currency (needs refinement)
 
 ## Backlog by epic
 
 | Epic | Stories (in order) |
 |---|---|
-| #1 Foundation | #4 Subscription list sorted by next billing date → #20 Choose the app currency |
+| #1 Foundation | #4 Subscription list sorted by next billing date (`in-progress`) → #20 Choose the app currency |
 | #5 Cost overview | #6 Monthly and yearly totals → #7 Breakdown by category |
 | #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
 | #12 Subscription lifecycle | #13 Mark as cancelled, archive → #14 Price changes with history |
