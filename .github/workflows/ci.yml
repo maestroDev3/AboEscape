@@ -16,6 +16,8 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      scaffolded: ${{ steps.guard.outputs.ok }}
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
@@ -49,7 +51,7 @@ jobs:
   # (saves ~6 min per TDD cycle).
   build-apk:
     needs: test
-    if: github.ref == 'refs/heads/main' || contains(github.event.head_commit.message, '[apk]')
+    if: needs.test.outputs.scaffolded == 'true' && (github.ref == 'refs/heads/main' || contains(github.event.head_commit.message, '[apk]'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
