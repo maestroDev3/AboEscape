@@ -42,5 +42,16 @@ void main() {
 
       expect(await reopened.watchCurrency().first, 'SEK');
     });
+
+    test('keeps the accepted disclaimer for a new instance', () async {
+      SharedPreferences.setMockInitialValues({});
+      final preferences = await SharedPreferences.getInstance();
+
+      await SharedPreferencesSettingsRepository(preferences).acceptDisclaimer();
+      final reopened = SharedPreferencesSettingsRepository(preferences);
+
+      expect(await reopened.isDisclaimerAccepted(), isTrue);
+      expect(preferences.getBool('settings.disclaimerAccepted.v1'), isTrue);
+    });
   });
 }

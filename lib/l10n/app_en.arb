@@ -215,5 +215,21 @@
         "example": "Oct 17, 2026"
       }
     }
+  },
+  "disclaimerTitle": "Please note",
+  "@disclaimerTitle": {
+    "description": "Title of the disclaimer dialog shown on first start."
+  },
+  "disclaimerText": "Abo Escape calculates billing dates and cancellation deadlines from the data you enter. All dates are without guarantee – your contract is always authoritative.",
+  "@disclaimerText": {
+    "description": "Disclaimer that calculated dates are without guarantee; shown on first start and under About."
+  },
+  "disclaimerConfirm": "Got it",
+  "@disclaimerConfirm": {
+    "description": "Button that confirms the disclaimer dialog."
+  },
+  "about": "About",
+  "@about": {
+    "description": "Settings entry that opens information about the app."
   }
 }

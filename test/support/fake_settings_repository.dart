@@ -4,11 +4,14 @@ import 'package:abo_escape/domain/settings_repository.dart';
 
 /// In-memory [SettingsRepository] for tests.
 class FakeSettingsRepository implements SettingsRepository {
-  FakeSettingsRepository({this.currency});
+  FakeSettingsRepository({this.currency, this.disclaimerAccepted = true});
 
   /// Current app currency, for assertions; null until one is chosen.
   String? currency;
   final _changes = StreamController<String?>.broadcast();
+
+  /// Accepted by default, so widget tests don't see the first-start dialog.
+  bool disclaimerAccepted;
 
   @override
   Stream<String?> watchCurrency() {
@@ -33,4 +36,10 @@ class FakeSettingsRepository implements SettingsRepository {
     currency = code;
     _changes.add(code);
   }
+
+  @override
+  Future<bool> isDisclaimerAccepted() async => disclaimerAccepted;
+
+  @override
+  Future<void> acceptDisclaimer() async => disclaimerAccepted = true;
 }

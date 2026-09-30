@@ -36,6 +36,24 @@ class _HomeScreenState extends State<HomeScreen> {
   late final Stream<List<Subscription>> _subscriptions = widget.repository
       .watchAll();
 
+  @override
+  void initState() {
+    super.initState();
+    _showDisclaimerIfNeeded();
+  }
+
+  /// Shows the disclaimer once, until the user confirms it.
+  Future<void> _showDisclaimerIfNeeded() async {
+    if (await widget.settings.isDisclaimerAccepted()) return;
+    if (!mounted) return;
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const _DisclaimerDialog(),
+    );
+    await widget.settings.acceptDisclaimer();
+  }
+
   void _openForm([Subscription? subscription]) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -262,6 +280,26 @@ class _SubscriptionTile extends StatelessWidget {
           style: theme.textTheme.titleMedium,
         ),
       ),
+    );
+  }
+}
+
+class _DisclaimerDialog extends StatelessWidget {
+  const _DisclaimerDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    return AlertDialog(
+      title: Text(localizations.disclaimerTitle),
+      content: Text(localizations.disclaimerText),
+      actions: [
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(localizations.disclaimerConfirm),
+        ),
+      ],
     );
   }
 }

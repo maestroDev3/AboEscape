@@ -6,4 +6,10 @@ abstract interface class SettingsRepository {
 
   /// Stores [code] as the app currency.
   Future<void> saveCurrency(String code);
+
+  /// Whether the user has confirmed the disclaimer shown on first start.
+  Future<bool> isDisclaimerAccepted();
+
+  /// Remembers that the user has confirmed the disclaimer.
+  Future<void> acceptDisclaimer();
 }

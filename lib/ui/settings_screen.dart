@@ -60,6 +60,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: Text(current),
                 onTap: () => _chooseCurrency(current),
               ),
+              ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: Text(localizations.about),
+                onTap: () => showAboutDialog(
+                  context: context,
+                  applicationName: localizations.appTitle,
+                  children: [Text(localizations.disclaimerText)],
+                ),
+              ),
             ],
           );
         },
