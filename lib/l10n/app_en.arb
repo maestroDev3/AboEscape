@@ -239,5 +239,27 @@
   "noReminderHint": "Empty = no reminder",
   "@noReminderHint": {
     "description": "Hint in the reminder field explaining that an empty field disables the reminder."
+  },
+  "reminderTitle": "Cancellation deadline",
+  "@reminderTitle": {
+    "description": "Title of the reminder notification."
+  },
+  "reminderMessage": "Cancel {name} by {date}",
+  "@reminderMessage": {
+    "description": "Body of the reminder notification.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Netflix"
+      },
+      "date": {
+        "type": "String",
+        "example": "Oct 17, 2026"
+      }
+    }
+  },
+  "reminderChannelName": "Cancellation reminders",
+  "@reminderChannelName": {
+    "description": "Name of the Android notification channel for reminders, shown in the system settings."
   }
 }
