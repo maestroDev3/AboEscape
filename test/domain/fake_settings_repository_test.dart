@@ -4,6 +4,6 @@ import '../support/settings_repository_contract.dart';
 void main() {
   runSettingsRepositoryContract(
     'FakeSettingsRepository',
-    () async => FakeSettingsRepository(),
+    () async => FakeSettingsRepository(disclaimerAccepted: false),
   );
 }

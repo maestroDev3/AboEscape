@@ -33,5 +33,19 @@ void runSettingsRepositoryContract(
 
       expect(emitted, [null, 'CHF']);
     });
+
+    test('reports the disclaimer as not accepted at first', () async {
+      final repository = await create();
+
+      expect(await repository.isDisclaimerAccepted(), isFalse);
+    });
+
+    test('remembers that the disclaimer was accepted', () async {
+      final repository = await create();
+
+      await repository.acceptDisclaimer();
+
+      expect(await repository.isDisclaimerAccepted(), isTrue);
+    });
   });
 }
