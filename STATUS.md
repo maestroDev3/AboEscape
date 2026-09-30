@@ -8,17 +8,17 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## In progress
 
-- Nothing right now.
+- #9 Calculate cancellation date – tasks #51, #52
 
 ## Up next
 
-- #9 Calculate cancellation date (minimum term, notice period)
+- #21 Deadline disclaimer on first start and in About
 
 ## Backlog by epic
 
 | Epic | Stories (in order) |
 |---|---|
-| #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
+| #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) (`in-progress`) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
 | #12 Subscription lifecycle | #13 Mark as cancelled, archive → #14 Price changes with history |
 | #15 Data safety | #16 Backup and CSV export |
 
