@@ -12,7 +12,7 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## Up next
 
-- #11 Reminder before billing / end of free trial
+- #11 Reminder before billing / end of free trial – waits for the open decisions below
 
 ## Backlog by epic
 
@@ -44,4 +44,5 @@ All stories without a marker are `backlog`.
 
 ## Open decisions (user only)
 
-- None right now.
+- #11: How is a free trial entered (trial end date per subscription, or a trial length)?
+- #11: Remind before every billing or only before the end of a free trial / yearly billings, and how many days before?
