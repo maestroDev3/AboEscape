@@ -13,7 +13,7 @@ The GitHub issues are authoritative; this file is the summary.
 ## Up next
 
 - #20 Choose the app currency (needs refinement, waits for the open decision below)
-- #9 Calculate cancellation date (minimum term, notice period)
+- #9 Calculate cancellation date (minimum term, notice period) – waits for the open decision below
 
 ## Backlog by epic
 
@@ -44,3 +44,4 @@ All stories without a marker are `backlog`.
 ## Open decisions (user only)
 
 - #20: When the app currency is changed, should existing subscriptions simply switch to the new currency (same numbers, no conversion) or keep their original currency?
+- #9: What happens after the minimum term – cancellable at the end of every billing period, renewal by the minimum term again, or the German rule since 2022 (monthly with at most one month notice)?
