@@ -6,6 +6,7 @@ import '../domain/costs.dart';
 import '../domain/subscription.dart';
 import '../domain/subscription_repository.dart';
 import '../l10n/app_localizations.dart';
+import 'cost_breakdown_screen.dart';
 import 'format.dart';
 import 'labels.dart';
 import 'subscription_form_screen.dart';
@@ -42,6 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _openCostBreakdown() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => CostBreakdownScreen(repository: widget.repository),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
@@ -71,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                   sliver: SliverToBoxAdapter(
-                    child: _CostCard(summaries: costSummaries(list)),
+                    child: _CostCard(
+                      summaries: costSummaries(list),
+                      onTap: _openCostBreakdown,
+                    ),
                   ),
                 ),
                 SliverPadding(
@@ -96,9 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
 /// Total monthly and yearly cost, one pair of rows per currency.
 class _CostCard extends StatelessWidget {
-  const _CostCard({required this.summaries});
+  const _CostCard({required this.summaries, required this.onTap});
 
   final List<CostSummary> summaries;
+
+  /// Opens the breakdown by category.
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +121,14 @@ class _CostCard extends StatelessWidget {
     final locale = Localizations.localeOf(context).toString();
 
     return Card.filled(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            for (final summary in summaries) ...[
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              for (final summary in summaries) ...[
               _CostRow(
                 label: localizations.costPerMonth,
                 amount: formatMoney(summary.monthly, locale),
@@ -124,6 +142,7 @@ class _CostCard extends StatelessWidget {
               ),
             ],
           ],
+          ),
         ),
       ),
     );
