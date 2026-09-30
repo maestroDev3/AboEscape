@@ -7,7 +7,7 @@ import '../support/subscription_fixtures.dart';
 
 Money _eur(int cents) => Money(cents: cents, currency: 'EUR');
 
-/// Returns the single summary for [subscriptions] as (monthly, yearly) cents.
+/// Monthly and yearly total in cents for one subscription per interval.
 (int, int) _totals(List<BillingInterval> intervals, int cents) {
   final summaries = costSummaries([
     for (final (index, interval) in intervals.indexed)
