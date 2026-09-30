@@ -8,7 +8,7 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## In progress
 
-- #9 Calculate cancellation date – tasks #51, #52
+- Nothing right now.
 
 ## Up next
 
@@ -18,7 +18,7 @@ The GitHub issues are authoritative; this file is the summary.
 
 | Epic | Stories (in order) |
 |---|---|
-| #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) (`in-progress`) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
+| #8 Deadlines and reminders | #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
 | #12 Subscription lifecycle | #13 Mark as cancelled, archive → #14 Price changes with history |
 | #15 Data safety | #16 Backup and CSV export |
 
@@ -26,11 +26,11 @@ All stories without a marker are `backlog`.
 
 ## Recently done
 
+- #9 Calculate cancellation date
 - #20 Choose the app currency (epic #1 Foundation complete)
 - #7 Breakdown by category (epic #5 Cost overview complete)
 - #6 Monthly and yearly totals
 - #4 Subscription list sorted by next billing date
-- #3 Create, edit and delete subscriptions
 
 ## Decisions
 
