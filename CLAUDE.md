@@ -117,7 +117,7 @@ configuration, load and follow the skill `.claude/skills/flutter-dart/SKILL.md`
   directly in logic.
 - Data access only through repository interfaces, so a backend or sync can be
   added later.
-- Permissions: `POST_NOTIFICATIONS`. No `INTERNET`.
+- Permissions: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED` (reminders after reboot). No `INTERNET`.
 - `flutter analyze` must report no issues.
 
 ## Environment note
@@ -144,6 +144,9 @@ commit messages: squash merges copy it into `main` and skip the APK build.
 - **After the minimum term (2026-09-30):** a subscription can be cancelled to the end
   of every billing period; the last day to cancel is that period end minus the notice
   period.
+- **Reminders (2026-09-30):** lead time is set per subscription (days before the last
+  day to cancel); reminders arrive at 9:00 local time (inexact, no exact-alarm
+  permission); `RECEIVE_BOOT_COMPLETED` is allowed so reminders survive a reboot.
 
 ## Open decisions (only the user decides)
 

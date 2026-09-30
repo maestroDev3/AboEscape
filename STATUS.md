@@ -40,6 +40,7 @@ All stories without a marker are `backlog`.
 - Platform: Android for now, iOS possibly later
 - Currency change: existing subscriptions switch to the new currency, no conversion
 - After the minimum term: cancellable to the end of every billing period minus notice period
+- Reminders: lead time per subscription, at 9:00, survive reboots (`RECEIVE_BOOT_COMPLETED`)
 
 ## Open decisions (user only)
 
