@@ -264,5 +264,61 @@ void main() {
         Money(cents: 1299, currency: 'GBP'),
       );
     });
+
+    testWidgets('offers 7 days of reminder lead time for new subscriptions', (
+      tester,
+    ) async {
+      final repository = FakeSubscriptionRepository();
+      await _openForm(tester, repository);
+      final field = find.byKey(const Key('reminderDaysField'));
+      await tester.ensureVisible(field);
+
+      expect(
+        find.descendant(of: field, matching: find.text('7')),
+        findsOneWidget,
+      );
+
+      await _enter(tester, 'nameField', 'Netflix');
+      await _enter(tester, 'priceField', '12.99');
+      await _save(tester);
+
+      expect(repository.subscriptions.single.reminderDaysBefore, 7);
+    });
+
+    testWidgets('stores a changed or cleared reminder lead time', (
+      tester,
+    ) async {
+      final repository = FakeSubscriptionRepository();
+      await _openForm(tester, repository);
+      await _enter(tester, 'nameField', 'Netflix');
+      await _enter(tester, 'priceField', '12.99');
+      await _enter(tester, 'reminderDaysField', '3');
+      await _save(tester);
+
+      expect(repository.subscriptions.single.reminderDaysBefore, 3);
+
+      final saved = repository.subscriptions.single;
+      await _openForm(tester, repository, subscription: saved);
+      await _enter(tester, 'reminderDaysField', '');
+      await _save(tester);
+
+      expect(repository.subscriptions.single.reminderDaysBefore, isNull);
+    });
+
+    testWidgets('pre-fills the reminder lead time', (tester) async {
+      final existing = buildSubscription(reminderDaysBefore: 5);
+      await _openForm(
+        tester,
+        FakeSubscriptionRepository([existing]),
+        subscription: existing,
+      );
+      final field = find.byKey(const Key('reminderDaysField'));
+      await tester.ensureVisible(field);
+
+      expect(
+        find.descendant(of: field, matching: find.text('5')),
+        findsOneWidget,
+      );
+    });
   });
 }

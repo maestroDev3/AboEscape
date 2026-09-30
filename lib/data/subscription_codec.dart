@@ -37,6 +37,7 @@ Map<String, Object?> subscriptionToJson(Subscription subscription) => {
   'minimumTerm': _periodToJson(subscription.minimumTerm),
   'noticePeriod': _periodToJson(subscription.noticePeriod),
   'category': subscription.category.name,
+  'reminderDaysBefore': subscription.reminderDaysBefore,
 };
 
 Subscription subscriptionFromJson(Map<String, Object?> json) => switch (json) {
@@ -60,6 +61,7 @@ Subscription subscriptionFromJson(Map<String, Object?> json) => switch (json) {
       category:
           SubscriptionCategory.values.asNameMap()[category] ??
           SubscriptionCategory.other,
+      reminderDaysBefore: _reminderDaysFromJson(json),
     ),
   _ => throw FormatException('Invalid subscription: $json'),
 };
@@ -99,3 +101,11 @@ String _dateToJson(DateTime day) =>
     '${day.year.toString().padLeft(4, '0')}-'
     '${day.month.toString().padLeft(2, '0')}-'
     '${day.day.toString().padLeft(2, '0')}';
+
+/// Data written before reminders existed has no field and gets the default;
+/// an explicit null means "no reminder".
+int? _reminderDaysFromJson(Map<String, Object?> json) => switch (json) {
+  {'reminderDaysBefore': final int days} => days,
+  {'reminderDaysBefore': null} => null,
+  _ => defaultReminderDaysBefore,
+};

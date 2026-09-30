@@ -15,6 +15,7 @@ Subscription buildSubscription({
   DateTime? startDate,
   Period? minimumTerm,
   Period? noticePeriod,
+  int? reminderDaysBefore,
   SubscriptionCategory category = SubscriptionCategory.streaming,
 }) => Subscription(
   id: id,
@@ -25,4 +26,5 @@ Subscription buildSubscription({
   minimumTerm: minimumTerm,
   noticePeriod: noticePeriod,
   category: category,
+  reminderDaysBefore: reminderDaysBefore,
 );
