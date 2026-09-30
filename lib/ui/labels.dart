@@ -1,7 +1,9 @@
 import '../domain/billing_interval.dart';
 import '../domain/period.dart';
+import '../domain/reminders.dart';
 import '../domain/subscription_category.dart';
 import '../l10n/app_localizations.dart';
+import 'format.dart';
 
 /// Localized name of a billing interval, e.g. "Every 2 weeks".
 String intervalLabel(
@@ -38,3 +40,13 @@ String periodUnitLabel(AppLocalizations localizations, PeriodUnit unit) =>
       PeriodUnit.weeks => localizations.periodUnitWeeks,
       PeriodUnit.months => localizations.periodUnitMonths,
     };
+
+/// Text of a reminder notification, e.g. "Cancel Netflix by Oct 17, 2026".
+String reminderMessage(
+  AppLocalizations localizations,
+  Reminder reminder,
+  String locale,
+) => localizations.reminderMessage(
+  reminder.subscriptionName,
+  formatDate(reminder.lastDayToCancel, locale),
+);
