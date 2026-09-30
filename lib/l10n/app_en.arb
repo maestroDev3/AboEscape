@@ -197,5 +197,13 @@
   "costBreakdownTitle": "Costs by category",
   "@costBreakdownTitle": {
     "description": "Title of the screen that splits the costs by category."
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Title of the settings screen and tooltip of the button that opens it."
+  },
+  "currencySettingLabel": "Currency",
+  "@currencySettingLabel": {
+    "description": "Setting and dialog title for the app currency used for all amounts."
   }
 }

@@ -4,6 +4,7 @@ import 'package:abo_escape/ui/subscription_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/fake_settings_repository.dart';
 import '../support/fake_subscription_repository.dart';
 import '../support/pump_app.dart';
 import '../support/subscription_fixtures.dart';
@@ -14,7 +15,13 @@ Future<void> _pumpHome(
   WidgetTester tester,
   FakeSubscriptionRepository repository,
 ) async {
-  await tester.pumpApp(HomeScreen(repository: repository, clock: () => _now));
+  await tester.pumpApp(
+    HomeScreen(
+      repository: repository,
+      settings: FakeSettingsRepository(),
+      clock: () => _now,
+    ),
+  );
   await tester.pumpAndSettle();
 }
 

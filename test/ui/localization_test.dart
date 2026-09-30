@@ -3,6 +3,7 @@ import 'package:abo_escape/ui/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/fake_settings_repository.dart';
 import '../support/fake_subscription_repository.dart';
 
 void main() {
@@ -26,7 +27,10 @@ void main() {
   group('AboEscapeApp', () {
     testWidgets('supports the English locale', (tester) async {
       await tester.pumpWidget(
-        AboEscapeApp(repository: FakeSubscriptionRepository()),
+        AboEscapeApp(
+          repository: FakeSubscriptionRepository(),
+          settings: FakeSettingsRepository(),
+        ),
       );
       await tester.pump();
 
@@ -36,7 +40,10 @@ void main() {
 
     testWidgets('registers the app localization delegate', (tester) async {
       await tester.pumpWidget(
-        AboEscapeApp(repository: FakeSubscriptionRepository()),
+        AboEscapeApp(
+          repository: FakeSubscriptionRepository(),
+          settings: FakeSettingsRepository(),
+        ),
       );
       await tester.pump();
 
@@ -46,7 +53,10 @@ void main() {
 
     testWidgets('generates its title from the localizations', (tester) async {
       await tester.pumpWidget(
-        AboEscapeApp(repository: FakeSubscriptionRepository()),
+        AboEscapeApp(
+          repository: FakeSubscriptionRepository(),
+          settings: FakeSettingsRepository(),
+        ),
       );
       await tester.pump();
 

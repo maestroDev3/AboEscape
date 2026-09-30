@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../domain/clock.dart';
+import '../domain/settings_repository.dart';
 import '../domain/subscription_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
@@ -11,11 +12,13 @@ import 'theme.dart';
 class AboEscapeApp extends StatelessWidget {
   const AboEscapeApp({
     required this.repository,
+    required this.settings,
     this.clock = DateTime.now,
     super.key,
   });
 
   final SubscriptionRepository repository;
+  final SettingsRepository settings;
   final Clock clock;
 
   @override
@@ -27,7 +30,11 @@ class AboEscapeApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: HomeScreen(repository: repository, clock: clock),
+      home: HomeScreen(
+        repository: repository,
+        settings: settings,
+        clock: clock,
+      ),
     );
   }
 }

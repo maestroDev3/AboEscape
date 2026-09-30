@@ -41,3 +41,10 @@ String formatAmountForInput(int cents, String locale) {
   final fraction = (cents % 100).toString().padLeft(2, '0');
   return '${cents ~/ 100}$separator$fraction';
 }
+
+/// Symbol of the currency [code] in [locale], e.g. `£` for `GBP`.
+String currencySymbol(String code, String locale) =>
+    NumberFormat.simpleCurrency(
+      locale: _normalize(locale),
+      name: code,
+    ).currencySymbol;

@@ -5,6 +5,7 @@ import 'package:abo_escape/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/fake_settings_repository.dart';
 import '../support/fake_subscription_repository.dart';
 import '../support/pump_app.dart';
 import '../support/subscription_fixtures.dart';
@@ -27,6 +28,7 @@ void main() {
       await tester.pumpApp(
         HomeScreen(
           repository: FakeSubscriptionRepository(_subscriptions),
+          settings: FakeSettingsRepository(),
           clock: () => DateTime(2026, 9, 30),
         ),
       );
