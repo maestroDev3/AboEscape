@@ -4,24 +4,23 @@ Current project state for planning and Claude projects. Maintained by Claude
 after every status change (see CLAUDE.md, “Keeping the status”).
 The GitHub issues are authoritative; this file is the summary.
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-09-30
 
 ## In progress
 
-- Nothing right now.
+- #6 Monthly and yearly totals – tasks #39, #40
 
 ## Up next
 
-- Blocked: GitHub Actions does not start jobs (billing / spending limit), so CI cannot run.
 - #20 Choose the app currency (needs refinement, waits for the open decision below)
-- Then epic #5: #6 Monthly and yearly totals
+- #7 Breakdown by category
 
 ## Backlog by epic
 
 | Epic | Stories (in order) |
 |---|---|
 | #1 Foundation | #20 Choose the app currency |
-| #5 Cost overview | #6 Monthly and yearly totals → #7 Breakdown by category |
+| #5 Cost overview | #6 Monthly and yearly totals (`in-progress`) → #7 Breakdown by category |
 | #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
 | #12 Subscription lifecycle | #13 Mark as cancelled, archive → #14 Price changes with history |
 | #15 Data safety | #16 Backup and CSV export |
