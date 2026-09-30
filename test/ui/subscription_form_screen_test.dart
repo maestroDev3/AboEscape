@@ -7,6 +7,7 @@ import 'package:abo_escape/ui/subscription_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/fake_settings_repository.dart';
 import '../support/fake_subscription_repository.dart';
 import '../support/pump_app.dart';
 import '../support/subscription_fixtures.dart';
@@ -18,6 +19,7 @@ Future<void> _openForm(
   WidgetTester tester,
   FakeSubscriptionRepository repository, {
   Subscription? subscription,
+  FakeSettingsRepository? settings,
 }) async {
   await tester.pumpApp(
     Builder(
@@ -29,6 +31,7 @@ Future<void> _openForm(
               MaterialPageRoute<void>(
                 builder: (_) => SubscriptionFormScreen(
                   repository: repository,
+                  settings: settings ?? FakeSettingsRepository(),
                   subscription: subscription,
                   clock: () => _now,
                 ),
@@ -239,6 +242,26 @@ void main() {
       expect(
         repository.subscriptions.single,
         existing.copyWith(name: 'Gym Plus'),
+      );
+    });
+
+    testWidgets('stores a new subscription in the app currency', (
+      tester,
+    ) async {
+      final repository = FakeSubscriptionRepository();
+      await _openForm(
+        tester,
+        repository,
+        settings: FakeSettingsRepository(currency: 'GBP'),
+      );
+      await _enter(tester, 'nameField', 'Netflix');
+      await _enter(tester, 'priceField', '12.99');
+
+      await _save(tester);
+
+      expect(
+        repository.subscriptions.single.price,
+        Money(cents: 1299, currency: 'GBP'),
       );
     });
   });

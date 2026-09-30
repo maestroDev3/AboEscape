@@ -2,6 +2,7 @@ import 'package:abo_escape/ui/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/fake_settings_repository.dart';
 import '../support/fake_subscription_repository.dart';
 import '../support/pump_app.dart';
 
@@ -13,7 +14,10 @@ void main() {
       tester.usePhoneSize();
 
       await tester.pumpWidget(
-        AboEscapeApp(repository: FakeSubscriptionRepository()),
+        AboEscapeApp(
+          repository: FakeSubscriptionRepository(),
+          settings: FakeSettingsRepository(),
+        ),
       );
       await tester.pump();
 
@@ -25,7 +29,10 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        AboEscapeApp(repository: FakeSubscriptionRepository()),
+        AboEscapeApp(
+          repository: FakeSubscriptionRepository(),
+          settings: FakeSettingsRepository(),
+        ),
       );
       await tester.pump();
 
