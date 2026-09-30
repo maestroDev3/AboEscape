@@ -169,4 +169,49 @@ void main() {
       expect(find.byTooltip('Delete'), findsNothing);
     });
   });
+
+  group('HomeScreen costs', () {
+    testWidgets('shows the monthly and yearly totals', (tester) async {
+      await _pumpHome(
+        tester,
+        FakeSubscriptionRepository([
+          netflix,
+          buildSubscription(
+            id: 'cloud',
+            name: 'Cloud',
+            cents: 10000,
+            interval: const Yearly(),
+          ),
+        ]),
+      );
+
+      expect(find.text('Per month'), findsOneWidget);
+      expect(find.text('€21.32'), findsOneWidget);
+      expect(find.text('Per year'), findsOneWidget);
+      expect(find.text('€255.88'), findsOneWidget);
+    });
+
+    testWidgets('shows no totals without subscriptions', (tester) async {
+      await _pumpHome(tester, FakeSubscriptionRepository());
+
+      expect(find.text('Per month'), findsNothing);
+      expect(find.text('Per year'), findsNothing);
+    });
+
+    testWidgets('updates the totals after adding a subscription', (
+      tester,
+    ) async {
+      await _pumpHome(tester, FakeSubscriptionRepository());
+
+      await tester.tap(find.text('Add subscription'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('nameField')), 'Netflix');
+      await tester.enterText(find.byKey(const Key('priceField')), '12.99');
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Per month'), findsOneWidget);
+      expect(find.text('€155.88'), findsOneWidget);
+    });
+  });
 }
