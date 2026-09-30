@@ -121,4 +121,25 @@ void main() {
       expect(SubscriptionCategory.values, contains(SubscriptionCategory.other));
     });
   });
+
+  group('Subscription.reminderDaysBefore', () {
+    test('keeps the lead time and defaults to no reminder', () {
+      expect(_netflix().reminderDaysBefore, isNull);
+      expect(_netflix().copyWith(reminderDaysBefore: 3).reminderDaysBefore, 3);
+    });
+
+    test('rejects a negative lead time', () {
+      expect(
+        () => _netflix().copyWith(reminderDaysBefore: -1),
+        throwsArgumentError,
+      );
+    });
+
+    test('can be cleared with copyWith', () {
+      final withReminder = _netflix().copyWith(reminderDaysBefore: 7);
+
+      expect(withReminder.copyWith(reminderDaysBefore: null).reminderDaysBefore, isNull);
+      expect(withReminder.copyWith(name: 'Other').reminderDaysBefore, 7);
+    });
+  });
 }

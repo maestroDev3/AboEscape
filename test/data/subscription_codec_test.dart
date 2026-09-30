@@ -57,6 +57,7 @@ void main() {
           id: 'a',
           name: 'Netflix',
           noticePeriod: Period(1, PeriodUnit.months),
+          reminderDaysBefore: 7,
         ),
         buildSubscription(
           id: 'b',
@@ -67,8 +68,27 @@ void main() {
           minimumTerm: Period(12, PeriodUnit.months),
           noticePeriod: Period(14, PeriodUnit.days),
           category: SubscriptionCategory.fitness,
+          reminderDaysBefore: 7,
         ),
       ]);
+    });
+
+    test('round-trips a reminder lead time and no reminder', () {
+      for (final days in [3, null]) {
+        final subscription = buildSubscription(reminderDaysBefore: days);
+
+        expect(
+          subscriptionFromJson(subscriptionToJson(subscription)),
+          subscription,
+        );
+      }
+    });
+
+    test('defaults to 7 days for data stored before reminders existed', () {
+      final json = subscriptionToJson(buildSubscription())
+        ..remove('reminderDaysBefore');
+
+      expect(subscriptionFromJson(json).reminderDaysBefore, 7);
     });
 
     test('falls back to "other" for an unknown category', () {
