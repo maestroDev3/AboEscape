@@ -23,7 +23,11 @@ class FakeSubscriptionRepository implements SubscriptionRepository {
         controller.add(subscriptions);
         changes = _changes.stream.listen(controller.add);
       },
-      onCancel: () => changes?.cancel(),
+      // Returning the cancel future would make `first` wait for it, which
+      // never completes inside fake-async widget tests.
+      onCancel: () {
+        changes?.cancel();
+      },
     );
     return controller.stream;
   }
