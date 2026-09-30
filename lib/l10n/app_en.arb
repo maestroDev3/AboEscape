@@ -193,5 +193,9 @@
   "costPerYear": "Per year",
   "@costPerYear": {
     "description": "Label of the total yearly cost of all subscriptions."
+  },
+  "costBreakdownTitle": "Costs by category",
+  "@costBreakdownTitle": {
+    "description": "Title of the screen that splits the costs by category."
   }
 }
