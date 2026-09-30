@@ -30,7 +30,10 @@ void main() {
     test('plans no reminder without a lead time', () {
       final withoutReminder = _gym.copyWith(reminderDaysBefore: null);
 
-      expect(planReminders([withoutReminder], DateTime(2026, 9, 29, 10)), isEmpty);
+      expect(
+        planReminders([withoutReminder], DateTime(2026, 9, 29, 10)),
+        isEmpty,
+      );
     });
 
     test('reminds today at 9:00 when the reminder day has passed', () {

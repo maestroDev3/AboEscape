@@ -19,8 +19,7 @@ class ReminderSync {
   final Clock clock;
 
   /// Re-plans all reminders now and after every change of the subscriptions.
-  StreamSubscription<List<Subscription>> start() =>
-      subscriptions.watchAll().listen(
-        (list) => scheduler.replaceAll(planReminders(list, clock())),
-      );
+  StreamSubscription<List<Subscription>> start() => subscriptions
+      .watchAll()
+      .listen((list) => scheduler.replaceAll(planReminders(list, clock())));
 }
