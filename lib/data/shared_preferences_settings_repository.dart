@@ -11,6 +11,9 @@ class SharedPreferencesSettingsRepository implements SettingsRepository {
   /// Versioned key of the app currency.
   static const currencyKey = 'settings.currency.v1';
 
+  /// Versioned key of the accepted disclaimer.
+  static const disclaimerKey = 'settings.disclaimerAccepted.v1';
+
   final SharedPreferences _preferences;
   final _changes = StreamController<String?>.broadcast();
 
@@ -37,4 +40,12 @@ class SharedPreferencesSettingsRepository implements SettingsRepository {
     await _preferences.setString(currencyKey, code);
     _changes.add(code);
   }
+
+  @override
+  Future<bool> isDisclaimerAccepted() async =>
+      _preferences.getBool(disclaimerKey) ?? false;
+
+  @override
+  Future<void> acceptDisclaimer() =>
+      _preferences.setBool(disclaimerKey, true);
 }
