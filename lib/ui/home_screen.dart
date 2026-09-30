@@ -129,19 +129,19 @@ class _CostCard extends StatelessWidget {
           child: Column(
             children: [
               for (final summary in summaries) ...[
-              _CostRow(
-                label: localizations.costPerMonth,
-                amount: formatMoney(summary.monthly, locale),
-                emphasized: true,
-              ),
-              const SizedBox(height: 4),
-              _CostRow(
-                label: localizations.costPerYear,
-                amount: formatMoney(summary.yearly, locale),
-                emphasized: false,
-              ),
+                _CostRow(
+                  label: localizations.costPerMonth,
+                  amount: formatMoney(summary.monthly, locale),
+                  emphasized: true,
+                ),
+                const SizedBox(height: 4),
+                _CostRow(
+                  label: localizations.costPerYear,
+                  amount: formatMoney(summary.yearly, locale),
+                  emphasized: false,
+                ),
+              ],
             ],
-          ],
           ),
         ),
       ),
