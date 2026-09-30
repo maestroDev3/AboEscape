@@ -14,42 +14,50 @@ DateTime addMonths(DateTime day, int months) {
   return DateTime.utc(year, month, min(day.day, lastDayOfMonth));
 }
 
-/// First billing day of [subscription] on or after the day of [today].
+/// The billing day with [index] of [subscription]; index 0 is the start date.
 ///
-/// The start date is the first billing day. Month-based intervals are always
-/// counted from the start date, so a subscription from the 31st returns to
-/// the 31st after a short month instead of drifting.
-DateTime nextBillingDate(Subscription subscription, DateTime today) {
-  final day = dayOf(today);
+/// Month-based intervals are always counted from the start date, so a
+/// subscription from the 31st returns to the 31st after a short month instead
+/// of drifting.
+DateTime billingDateAt(Subscription subscription, int index) {
   final start = subscription.startDate;
-  if (!start.isBefore(day)) return start;
-
   return switch (subscription.interval) {
-    Monthly() => _nextMonthBased(start, day, 1),
-    Quarterly() => _nextMonthBased(start, day, 3),
-    Yearly() => _nextMonthBased(start, day, 12),
-    EveryNWeeks(:final weeks) => _nextWeekBased(start, day, weeks * 7),
+    Monthly() => addMonths(start, index),
+    Quarterly() => addMonths(start, index * 3),
+    Yearly() => addMonths(start, index * 12),
+    // UTC midnights, so whole days never shift across daylight saving time.
+    EveryNWeeks(:final weeks) => start.add(Duration(days: index * weeks * 7)),
   };
 }
 
-DateTime _nextMonthBased(DateTime start, DateTime day, int step) {
+/// Index of the first billing day of [subscription] on or after [day].
+int firstBillingIndexOnOrAfter(Subscription subscription, DateTime day) {
+  final start = subscription.startDate;
+  if (!start.isBefore(day)) return 0;
+
   final monthsBetween =
       (day.year - start.year) * 12 + (day.month - start.month);
-  var periods = max(0, monthsBetween ~/ step - 1);
-  var candidate = addMonths(start, periods * step);
-  while (candidate.isBefore(day)) {
-    periods++;
-    candidate = addMonths(start, periods * step);
+  final estimate = switch (subscription.interval) {
+    Monthly() => monthsBetween,
+    Quarterly() => monthsBetween ~/ 3,
+    Yearly() => monthsBetween ~/ 12,
+    EveryNWeeks(:final weeks) => day.difference(start).inDays ~/ (weeks * 7),
+  };
+  var index = max(0, estimate - 1);
+  while (billingDateAt(subscription, index).isBefore(day)) {
+    index++;
   }
-  return candidate;
+  return index;
 }
 
-DateTime _nextWeekBased(DateTime start, DateTime day, int periodDays) {
-  // Both values are UTC midnights, so the difference is whole days.
-  final elapsedDays = day.difference(start).inDays;
-  final periods = (elapsedDays + periodDays - 1) ~/ periodDays;
-  return start.add(Duration(days: periods * periodDays));
-}
+/// First billing day of [subscription] on or after the day of [today].
+///
+/// The start date is the first billing day.
+DateTime nextBillingDate(Subscription subscription, DateTime today) =>
+    billingDateAt(
+      subscription,
+      firstBillingIndexOnOrAfter(subscription, dayOf(today)),
+    );
 
 /// Returns [subscriptions] ordered by their next billing date after [today],
 /// ties broken by name (case-insensitive); the input stays unchanged.
