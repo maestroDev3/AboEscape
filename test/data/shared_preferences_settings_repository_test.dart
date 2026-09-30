@@ -7,21 +7,28 @@ import '../support/settings_repository_contract.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  runSettingsRepositoryContract('SharedPreferencesSettingsRepository', () async {
-    SharedPreferences.setMockInitialValues({});
-    return SharedPreferencesSettingsRepository(
-      await SharedPreferences.getInstance(),
-    );
-  });
+  runSettingsRepositoryContract(
+    'SharedPreferencesSettingsRepository',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      return SharedPreferencesSettingsRepository(
+        await SharedPreferences.getInstance(),
+      );
+    },
+  );
 
   group('SharedPreferencesSettingsRepository', () {
     test('stores the currency under settings.currency.v1', () async {
       SharedPreferences.setMockInitialValues({});
       final preferences = await SharedPreferences.getInstance();
 
-      await SharedPreferencesSettingsRepository(preferences).saveCurrency('GBP');
+      await SharedPreferencesSettingsRepository(preferences)
+          .saveCurrency('GBP');
 
-      expect(SharedPreferencesSettingsRepository.currencyKey, 'settings.currency.v1');
+      expect(
+        SharedPreferencesSettingsRepository.currencyKey,
+        'settings.currency.v1',
+      );
       expect(preferences.getString('settings.currency.v1'), 'GBP');
     });
 
@@ -29,7 +36,8 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       final preferences = await SharedPreferences.getInstance();
 
-      await SharedPreferencesSettingsRepository(preferences).saveCurrency('SEK');
+      await SharedPreferencesSettingsRepository(preferences)
+          .saveCurrency('SEK');
       final reopened = SharedPreferencesSettingsRepository(preferences);
 
       expect(await reopened.watchCurrency().first, 'SEK');

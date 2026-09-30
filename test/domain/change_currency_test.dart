@@ -46,7 +46,9 @@ void main() {
     test('offers euro and US dollar as three-letter codes', () {
       expect(supportedCurrencies, containsAll(['EUR', 'USD']));
       expect(
-        supportedCurrencies.every((code) => RegExp(r'^[A-Z]{3}$').hasMatch(code)),
+        supportedCurrencies.every(
+          (code) => RegExp(r'^[A-Z]{3}$').hasMatch(code),
+        ),
         isTrue,
       );
     });
