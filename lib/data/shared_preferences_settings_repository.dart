@@ -46,6 +46,5 @@ class SharedPreferencesSettingsRepository implements SettingsRepository {
       _preferences.getBool(disclaimerKey) ?? false;
 
   @override
-  Future<void> acceptDisclaimer() =>
-      _preferences.setBool(disclaimerKey, true);
+  Future<void> acceptDisclaimer() => _preferences.setBool(disclaimerKey, true);
 }
