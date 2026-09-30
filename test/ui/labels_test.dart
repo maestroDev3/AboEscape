@@ -1,4 +1,5 @@
 import 'package:abo_escape/domain/billing_interval.dart';
+import 'package:abo_escape/domain/reminders.dart';
 import 'package:abo_escape/domain/subscription_category.dart';
 import 'package:abo_escape/l10n/app_localizations.dart';
 import 'package:abo_escape/ui/labels.dart';
@@ -61,6 +62,29 @@ void main() {
         categoryLabel(localizations, SubscriptionCategory.streaming),
         'Streaming',
       );
+    });
+  });
+
+  group('reminderMessage', () {
+    testWidgets('names the subscription and the last day to cancel', (
+      tester,
+    ) async {
+      final localizations = await _localizations(tester);
+
+      final message = reminderMessage(
+        localizations,
+        Reminder(
+          id: 0,
+          at: DateTime(2026, 10, 10, 9),
+          subscriptionName: 'Netflix',
+          lastDayToCancel: DateTime.utc(2026, 10, 17),
+        ),
+        'en',
+      );
+
+      expect(message, 'Cancel Netflix by Oct 17, 2026');
+      expect(localizations.reminderTitle, 'Cancellation deadline');
+      expect(localizations.reminderChannelName, 'Cancellation reminders');
     });
   });
 }
