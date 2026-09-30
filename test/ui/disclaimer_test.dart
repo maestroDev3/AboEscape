@@ -1,5 +1,4 @@
 import 'package:abo_escape/ui/home_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/fake_settings_repository.dart';
