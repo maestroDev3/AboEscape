@@ -1,6 +1,8 @@
 import 'package:abo_escape/domain/billing_interval.dart';
+import 'package:abo_escape/domain/period.dart';
 import 'package:abo_escape/ui/home_screen.dart';
 import 'package:abo_escape/ui/subscription_form_screen.dart';
+import 'package:abo_escape/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -220,6 +222,43 @@ void main() {
       expect(find.text('Per month'), findsOneWidget);
       // New subscriptions use the currency of the test locale (en → USD).
       expect(find.text(r'$155.88'), findsOneWidget);
+    });
+  });
+
+  group('HomeScreen deadlines', () {
+    testWidgets('shows the last day to cancel of each subscription', (
+      tester,
+    ) async {
+      await _pumpHome(
+        tester,
+        FakeSubscriptionRepository([
+          buildSubscription(
+            id: 'gym',
+            name: 'Gym',
+            startDate: DateTime.utc(2026, 1, 1),
+            noticePeriod: Period(14, PeriodUnit.days),
+          ),
+        ]),
+      );
+
+      final text = tester.widget<Text>(find.text('Cancel by Oct 17, 2026'));
+      expect(text.style?.color, isNot(AppTheme.light().colorScheme.error));
+    });
+
+    testWidgets('highlights a deadline within 14 days', (tester) async {
+      await _pumpHome(
+        tester,
+        FakeSubscriptionRepository([
+          buildSubscription(
+            id: 'news',
+            name: 'News',
+            startDate: DateTime.utc(2026, 1, 1),
+          ),
+        ]),
+      );
+
+      final text = tester.widget<Text>(find.text('Cancel by Sep 30, 2026'));
+      expect(text.style?.color, AppTheme.light().colorScheme.error);
     });
   });
 }
