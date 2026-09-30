@@ -139,6 +139,11 @@ commit messages: squash merges copy it into `main` and skip the APK build.
 - **Disclaimer:** shown once on first start and permanently under “About”
   (deadlines without guarantee, the contract is authoritative).
 - **Platform:** Android only for now; don't block iOS, add it later as its own epic if needed.
+- **Currency change (2026-09-30):** changing the app currency switches all existing
+  subscriptions to the new currency; amounts stay the same (no conversion).
+- **After the minimum term (2026-09-30):** a subscription can be cancelled to the end
+  of every billing period; the last day to cancel is that period end minus the notice
+  period.
 
 ## Open decisions (only the user decides)
 
