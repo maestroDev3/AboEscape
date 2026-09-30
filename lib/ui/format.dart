@@ -44,5 +44,7 @@ String formatAmountForInput(int cents, String locale) {
 
 /// Symbol of the currency [code] in [locale], e.g. `£` for `GBP`.
 String currencySymbol(String code, String locale) =>
-    NumberFormat.simpleCurrency(locale: _normalize(locale), name: code)
-        .currencySymbol;
+    NumberFormat.simpleCurrency(
+      locale: _normalize(locale),
+      name: code,
+    ).currencySymbol;
