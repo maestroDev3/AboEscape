@@ -7,6 +7,7 @@ import '../domain/billing_interval.dart';
 import '../domain/clock.dart';
 import '../domain/money.dart';
 import '../domain/period.dart';
+import '../domain/settings_repository.dart';
 import '../domain/subscription.dart';
 import '../domain/subscription_category.dart';
 import '../domain/subscription_repository.dart';
@@ -21,12 +22,16 @@ enum _IntervalKind { monthly, quarterly, yearly, everyNWeeks }
 class SubscriptionFormScreen extends StatefulWidget {
   const SubscriptionFormScreen({
     required this.repository,
+    required this.settings,
     this.subscription,
     this.clock = DateTime.now,
     super.key,
   });
 
   final SubscriptionRepository repository;
+
+  /// Provides the app currency for new subscriptions.
+  final SettingsRepository settings;
 
   /// The subscription to edit; null creates a new one.
   final Subscription? subscription;
@@ -119,9 +124,13 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
     if (cents == null) return;
 
     final existing = widget.subscription;
+    final localeCurrency = currencyForLocale(
+      Localizations.localeOf(context).toString(),
+    );
     final currency =
         existing?.price.currency ??
-        currencyForLocale(Localizations.localeOf(context).toString());
+        await widget.settings.watchCurrency().first ??
+        localeCurrency;
     final subscription = Subscription(
       id: existing?.id ?? _newId(),
       name: _name.text,

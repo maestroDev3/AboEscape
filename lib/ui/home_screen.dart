@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import '../domain/billing.dart';
 import '../domain/clock.dart';
 import '../domain/costs.dart';
+import '../domain/settings_repository.dart';
 import '../domain/subscription.dart';
 import '../domain/subscription_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'cost_breakdown_screen.dart';
 import 'format.dart';
 import 'labels.dart';
+import 'settings_screen.dart';
 import 'subscription_form_screen.dart';
 
 /// Start screen listing the user's subscriptions, with an empty state until
@@ -16,11 +18,13 @@ import 'subscription_form_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     required this.repository,
+    required this.settings,
     this.clock = DateTime.now,
     super.key,
   });
 
   final SubscriptionRepository repository;
+  final SettingsRepository settings;
   final Clock clock;
 
   @override
@@ -36,8 +40,20 @@ class _HomeScreenState extends State<HomeScreen> {
       MaterialPageRoute<void>(
         builder: (_) => SubscriptionFormScreen(
           repository: widget.repository,
+          settings: widget.settings,
           subscription: subscription,
           clock: widget.clock,
+        ),
+      ),
+    );
+  }
+
+  void _openSettings() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => SettingsScreen(
+          settings: widget.settings,
+          subscriptions: widget.repository,
         ),
       ),
     );
@@ -70,7 +86,16 @@ class _HomeScreenState extends State<HomeScreen> {
           };
           return CustomScrollView(
             slivers: [
-              SliverAppBar.large(title: Text(localizations.appTitle)),
+              SliverAppBar.large(
+                title: Text(localizations.appTitle),
+                actions: [
+                  IconButton(
+                    onPressed: _openSettings,
+                    tooltip: localizations.settings,
+                    icon: const Icon(Icons.settings_outlined),
+                  ),
+                ],
+              ),
               if (subscriptions case final list? when list.isEmpty)
                 SliverFillRemaining(
                   hasScrollBody: false,
