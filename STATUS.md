@@ -8,18 +8,17 @@ The GitHub issues are authoritative; this file is the summary.
 
 ## In progress
 
-- Nothing right now.
+- #20 Choose the app currency – tasks #47, #48
 
 ## Up next
 
-- #20 Choose the app currency (needs refinement)
 - #9 Calculate cancellation date (minimum term, notice period)
 
 ## Backlog by epic
 
 | Epic | Stories (in order) |
 |---|---|
-| #1 Foundation | #20 Choose the app currency |
+| #1 Foundation | #20 Choose the app currency (`in-progress`) |
 | #8 Deadlines and reminders | #9 Calculate cancellation date (minimum term, notice period) → #21 Deadline disclaimer on first start and in About → #10 Reminder X days before the deadline → #11 Reminder before billing / end of free trial |
 | #12 Subscription lifecycle | #13 Mark as cancelled, archive → #14 Price changes with history |
 | #15 Data safety | #16 Backup and CSV export |
