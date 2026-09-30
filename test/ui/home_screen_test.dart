@@ -211,7 +211,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Per month'), findsOneWidget);
-      expect(find.text('€155.88'), findsOneWidget);
+      // New subscriptions use the currency of the test locale (en → USD).
+      expect(find.text(r'$155.88'), findsOneWidget);
     });
   });
 }
