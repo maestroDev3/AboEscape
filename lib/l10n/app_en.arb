@@ -205,5 +205,15 @@
   "currencySettingLabel": "Currency",
   "@currencySettingLabel": {
     "description": "Setting and dialog title for the app currency used for all amounts."
+  },
+  "cancelBy": "Cancel by {date}",
+  "@cancelBy": {
+    "description": "Last day to cancel a subscription, shown in the list.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Oct 17, 2026"
+      }
+    }
   }
 }

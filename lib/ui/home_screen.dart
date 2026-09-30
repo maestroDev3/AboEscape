@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../domain/billing.dart';
+import '../domain/cancellation.dart';
 import '../domain/clock.dart';
 import '../domain/costs.dart';
 import '../domain/settings_repository.dart';
@@ -115,11 +116,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 96),
                   sliver: SliverList.builder(
                     itemCount: list.length,
-                    itemBuilder: (context, index) => _SubscriptionTile(
-                      subscription: list[index],
-                      nextBilling: nextBillingDate(list[index], widget.clock()),
-                      onTap: () => _openForm(list[index]),
-                    ),
+                    itemBuilder: (context, index) {
+                      final now = widget.clock();
+                      final deadline = cancellationDeadline(list[index], now);
+                      return _SubscriptionTile(
+                        subscription: list[index],
+                        nextBilling: nextBillingDate(list[index], now),
+                        lastDayToCancel: deadline.lastDayToCancel,
+                        deadlineIsNear:
+                            deadline.lastDayToCancel
+                                .difference(dayOf(now))
+                                .inDays <=
+                            _nearDeadlineDays,
+                        onTap: () => _openForm(list[index]),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -199,15 +210,24 @@ class _CostRow extends StatelessWidget {
   }
 }
 
+/// Deadlines this close (in days) are highlighted in the list.
+const _nearDeadlineDays = 14;
+
 class _SubscriptionTile extends StatelessWidget {
   const _SubscriptionTile({
     required this.subscription,
     required this.nextBilling,
+    required this.lastDayToCancel,
+    required this.deadlineIsNear,
     required this.onTap,
   });
 
   final Subscription subscription;
   final DateTime nextBilling;
+  final DateTime lastDayToCancel;
+
+  /// Highlights [lastDayToCancel] in the error color.
+  final bool deadlineIsNear;
   final VoidCallback onTap;
 
   @override
@@ -228,6 +248,12 @@ class _SubscriptionTile extends StatelessWidget {
             Text(intervalLabel(localizations, subscription.interval)),
             Text(
               localizations.nextBillingDate(formatDate(nextBilling, locale)),
+            ),
+            Text(
+              localizations.cancelBy(formatDate(lastDayToCancel, locale)),
+              style: deadlineIsNear
+                  ? TextStyle(color: theme.colorScheme.error)
+                  : null,
             ),
           ],
         ),
