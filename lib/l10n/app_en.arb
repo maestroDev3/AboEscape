@@ -185,5 +185,13 @@
         "example": "Oct 15, 2026"
       }
     }
+  },
+  "costPerMonth": "Per month",
+  "@costPerMonth": {
+    "description": "Label of the total monthly cost of all subscriptions."
+  },
+  "costPerYear": "Per year",
+  "@costPerYear": {
+    "description": "Label of the total yearly cost of all subscriptions."
   }
 }

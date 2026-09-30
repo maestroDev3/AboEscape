@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../domain/billing.dart';
 import '../domain/clock.dart';
+import '../domain/costs.dart';
 import '../domain/subscription.dart';
 import '../domain/subscription_repository.dart';
 import '../l10n/app_localizations.dart';
@@ -66,7 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   hasScrollBody: false,
                   child: _EmptyState(message: localizations.emptySubscriptions),
                 )
-              else if (subscriptions case final list?)
+              else if (subscriptions case final list?) ...[
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  sliver: SliverToBoxAdapter(
+                    child: _CostCard(summaries: costSummaries(list)),
+                  ),
+                ),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 96),
                   sliver: SliverList.builder(
@@ -78,10 +85,72 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+              ],
             ],
           );
         },
       ),
+    );
+  }
+}
+
+/// Total monthly and yearly cost, one pair of rows per currency.
+class _CostCard extends StatelessWidget {
+  const _CostCard({required this.summaries});
+
+  final List<CostSummary> summaries;
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final locale = Localizations.localeOf(context).toString();
+
+    return Card.filled(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            for (final summary in summaries) ...[
+              _CostRow(
+                label: localizations.costPerMonth,
+                amount: formatMoney(summary.monthly, locale),
+                emphasized: true,
+              ),
+              const SizedBox(height: 4),
+              _CostRow(
+                label: localizations.costPerYear,
+                amount: formatMoney(summary.yearly, locale),
+                emphasized: false,
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CostRow extends StatelessWidget {
+  const _CostRow({
+    required this.label,
+    required this.amount,
+    required this.emphasized,
+  });
+
+  final String label;
+  final String amount;
+  final bool emphasized;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final style = emphasized ? textTheme.titleLarge : textTheme.bodyLarge;
+
+    return Row(
+      children: [
+        Expanded(child: Text(label, style: style)),
+        Text(amount, style: style),
+      ],
     );
   }
 }
