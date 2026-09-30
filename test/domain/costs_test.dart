@@ -40,10 +40,10 @@ void main() {
     });
 
     test('rounds once on the total, not per subscription', () {
-      expect(
-        _totals([const Yearly(), const Yearly(), const Yearly()], 100),
-        (25, 300),
-      );
+      expect(_totals([const Yearly(), const Yearly(), const Yearly()], 100), (
+        25,
+        300,
+      ));
     });
 
     test('rounds half up', () {

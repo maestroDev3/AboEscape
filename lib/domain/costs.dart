@@ -11,7 +11,9 @@ final class CostSummary {
 
   @override
   bool operator ==(Object other) =>
-      other is CostSummary && other.monthly == monthly && other.yearly == yearly;
+      other is CostSummary &&
+      other.monthly == monthly &&
+      other.yearly == yearly;
 
   @override
   int get hashCode => Object.hash(monthly, yearly);
