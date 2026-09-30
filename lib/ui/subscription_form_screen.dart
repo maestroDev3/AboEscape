@@ -49,6 +49,9 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
   final _weeks = TextEditingController();
   final _minimumTermAmount = TextEditingController();
   final _noticePeriodAmount = TextEditingController();
+  final _reminderDays = TextEditingController(
+    text: '$defaultReminderDaysBefore',
+  );
 
   var _intervalKind = _IntervalKind.monthly;
   var _category = SubscriptionCategory.other;
@@ -91,6 +94,10 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
       _minimumTermAmount.text = '${term.amount}';
       _minimumTermUnit = term.unit;
     }
+    _reminderDays.text = switch (subscription.reminderDaysBefore) {
+      final days? => '$days',
+      null => '',
+    };
     if (subscription.noticePeriod case final notice?) {
       _noticePeriodAmount.text = '${notice.amount}';
       _noticePeriodUnit = notice.unit;
@@ -104,6 +111,7 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
     _weeks.dispose();
     _minimumTermAmount.dispose();
     _noticePeriodAmount.dispose();
+    _reminderDays.dispose();
     super.dispose();
   }
 
@@ -140,6 +148,7 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
       minimumTerm: _period(_minimumTermAmount.text, _minimumTermUnit),
       noticePeriod: _period(_noticePeriodAmount.text, _noticePeriodUnit),
       category: _category,
+      reminderDaysBefore: _nonNegativeNumber(_reminderDays.text),
     );
 
     await widget.repository.save(subscription);
@@ -304,6 +313,23 @@ class _SubscriptionFormScreenState extends State<SubscriptionFormScreen> {
                 onUnitChanged: (unit) =>
                     setState(() => _noticePeriodUnit = unit),
               ),
+              const _Gap(),
+              TextFormField(
+                key: const Key('reminderDaysField'),
+                controller: _reminderDays,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: localizations.reminderDaysFieldLabel,
+                  hintText: localizations.noReminderHint,
+                ),
+                validator: (value) {
+                  final text = (value ?? '').trim();
+                  if (text.isEmpty || _nonNegativeNumber(text) != null) {
+                    return null;
+                  }
+                  return localizations.wholeNumberError;
+                },
+              ),
             ],
           ),
         ),
@@ -323,6 +349,12 @@ String _intervalKindLabel(AppLocalizations localizations, _IntervalKind kind) =>
 /// Parses a positive whole number; null for empty or invalid text.
 int? _wholeNumber(String text) => switch (int.tryParse(text.trim())) {
   final number? when number >= 1 => number,
+  _ => null,
+};
+
+/// Parses a whole number of zero or more; null for empty or invalid text.
+int? _nonNegativeNumber(String text) => switch (int.tryParse(text.trim())) {
+  final number? when number >= 0 => number,
   _ => null,
 };
 

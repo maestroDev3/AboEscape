@@ -231,5 +231,13 @@
   "about": "About",
   "@about": {
     "description": "Settings entry that opens information about the app."
+  },
+  "reminderDaysFieldLabel": "Remind me (days before the deadline)",
+  "@reminderDaysFieldLabel": {
+    "description": "Label of the field for how many days before the last day to cancel the user is reminded; empty means no reminder."
+  },
+  "noReminderHint": "Empty = no reminder",
+  "@noReminderHint": {
+    "description": "Hint in the reminder field explaining that an empty field disables the reminder."
   }
 }
