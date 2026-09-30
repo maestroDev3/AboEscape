@@ -138,7 +138,10 @@ void main() {
     test('can be cleared with copyWith', () {
       final withReminder = _netflix().copyWith(reminderDaysBefore: 7);
 
-      expect(withReminder.copyWith(reminderDaysBefore: null).reminderDaysBefore, isNull);
+      expect(
+        withReminder.copyWith(reminderDaysBefore: null).reminderDaysBefore,
+        isNull,
+      );
       expect(withReminder.copyWith(name: 'Other').reminderDaysBefore, 7);
     });
   });
